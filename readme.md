@@ -6,6 +6,47 @@
 
 [>>> Click Here to Install Fooocus <<<](#download)
 
+## Reusing This Fork
+
+This fork includes the Fooocus source code plus local changes for expanded upscale choices and a Windows venv launcher. It does **not** include the Python virtual environment, model files, cache files, generated images, or logs. Those files are intentionally ignored because they are large and machine-specific.
+
+### Windows setup from a fresh clone
+
+Install Python 3.10 first. Then run these commands in PowerShell:
+
+```powershell
+git clone https://github.com/muzahidkhan/foocus.git
+cd foocus
+py -3.10 -m venv venv
+.\venv\Scripts\python.exe -m pip install --upgrade pip setuptools wheel
+.\venv\Scripts\python.exe -m pip install -r requirements_versions.txt
+```
+
+For RTX 50-series GPUs, install the CUDA 12.8 PyTorch wheels:
+
+```powershell
+.\venv\Scripts\python.exe -m pip install --upgrade --force-reinstall torch torchvision --index-url https://download.pytorch.org/whl/cu128
+.\venv\Scripts\python.exe -m pip install --force-reinstall numpy==1.26.4 pillow==10.4.0 markupsafe==2.1.5 packaging==24.1
+.\venv\Scripts\python.exe -m pip install --force-reinstall fastapi==0.103.2 starlette==0.27.0 pydantic==1.10.15 anyio==3.7.1
+```
+
+Launch with:
+
+```powershell
+.\run_venv.bat
+```
+
+The first launch downloads the default SDXL checkpoint and support models into `models/`. This can require several GB of disk space and may take a while.
+
+### Fork-specific upscale options
+
+This fork adds extra Upscale or Variation choices:
+
+- `Upscale (3x)`, `Upscale (4x)`, `Upscale (8x)`, `Upscale (16x)`
+- `Upscale (Fast 3x)`, `Upscale (Fast 4x)`, `Upscale (Fast 8x)`, `Upscale (Fast 16x)`
+
+Very large upscale factors can produce huge images and may fail if the input image is already large or the machine does not have enough RAM/VRAM.
+
 Fooocus is an image generating software (based on [Gradio](https://www.gradio.app/) <a href='https://github.com/gradio-app/gradio'><img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>).
 
 Fooocus presents a rethinking of image generator designs. The software is offline, open source, and free, while at the same time, similar to many online image generators like Midjourney, the manual tweaking is not needed, and users only need to focus on the prompts and images. Fooocus has also simplified the installation: between pressing "download" and generating the first image, the number of needed mouse clicks is strictly limited to less than 3. Minimal GPU memory requirement is 4GB (Nvidia).
