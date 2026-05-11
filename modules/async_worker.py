@@ -572,26 +572,27 @@ def worker():
 
     def apply_upscale(async_task, uov_input_image, uov_method, switch, current_progress, advance_progress=False):
         H, W, C = uov_input_image.shape
+        import re
+        scale_match = re.search(r'(\d+(?:\.\d+)?)x', uov_method)
+        f = float(scale_match.group(1)) if scale_match else 1.0
+
         if advance_progress:
             current_progress += 1
-        progressbar(async_task, current_progress, f'Upscaling image from {str((W, H))} ...')
-        uov_input_image = perform_upscale(uov_input_image)
+        progressbar(async_task, current_progress, f'Upscaling image from {str((W, H))} to {f:g}x ...')
+        uov_input_image = perform_upscale(uov_input_image, scale=f)
         print(f'Image upscaled.')
-        if '1.5x' in uov_method:
-            f = 1.5
-        elif '2x' in uov_method:
-            f = 2.0
-        else:
-            f = 1.0
         shape_ceil = get_shape_ceil(H * f, W * f)
         if shape_ceil < 1024:
             print(f'[Upscale] Image is resized because it is too small.')
             uov_input_image = set_image_shape_ceil(uov_input_image, 1024)
             shape_ceil = 1024
         else:
-            uov_input_image = resample_image(uov_input_image, width=W * f, height=H * f)
+            uov_input_image = resample_image(uov_input_image, width=int(round(W * f)), height=int(round(H * f)))
         image_is_super_large = shape_ceil > 2800
         if 'fast' in uov_method:
+            direct_return = True
+        elif f > 2.0:
+            print('Large upscale factor selected. Directly returned the SR image to avoid SDXL diffusion at extreme resolution.')
             direct_return = True
         elif image_is_super_large:
             print('Image is too large. Directly returned the SR image. '
@@ -983,7 +984,7 @@ def worker():
             direct_return, img, denoising_strength, initial_latent, tiled, width, height, current_progress = apply_upscale(
                 async_task, img, async_task.enhance_uov_method, switch, current_progress)
             if direct_return:
-                d = [('Upscale (Fast)', 'upscale_fast', '2x')]
+                d = [('Upscale', 'upscale', async_task.enhance_uov_method)]
                 if modules.config.default_black_out_nsfw or async_task.black_out_nsfw:
                     progressbar(async_task, current_progress, 'Checking for NSFW content ...')
                     img = default_censor(img)
@@ -1178,7 +1179,7 @@ def worker():
                 async_task, async_task.uov_input_image, async_task.uov_method, switch, current_progress,
                 advance_progress=True)
             if direct_return:
-                d = [('Upscale (Fast)', 'upscale_fast', '2x')]
+                d = [('Upscale', 'upscale', async_task.uov_method)]
                 if modules.config.default_black_out_nsfw or async_task.black_out_nsfw:
                     progressbar(async_task, 100, 'Checking for NSFW content ...')
                     async_task.uov_input_image = default_censor(async_task.uov_input_image)

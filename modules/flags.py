@@ -6,9 +6,21 @@ subtle_variation = 'Vary (Subtle)'
 strong_variation = 'Vary (Strong)'
 upscale_15 = 'Upscale (1.5x)'
 upscale_2 = 'Upscale (2x)'
+upscale_3 = 'Upscale (3x)'
+upscale_4 = 'Upscale (4x)'
+upscale_8 = 'Upscale (8x)'
+upscale_16 = 'Upscale (16x)'
 upscale_fast = 'Upscale (Fast 2x)'
+upscale_fast_3 = 'Upscale (Fast 3x)'
+upscale_fast_4 = 'Upscale (Fast 4x)'
+upscale_fast_8 = 'Upscale (Fast 8x)'
+upscale_fast_16 = 'Upscale (Fast 16x)'
 
-uov_list = [disabled, subtle_variation, strong_variation, upscale_15, upscale_2, upscale_fast]
+uov_list = [
+    disabled, subtle_variation, strong_variation,
+    upscale_15, upscale_2, upscale_3, upscale_4, upscale_8, upscale_16,
+    upscale_fast, upscale_fast_3, upscale_fast_4, upscale_fast_8, upscale_fast_16
+]
 
 enhancement_uov_before = "Before First Enhancement"
 enhancement_uov_after = "After Last Enhancement"

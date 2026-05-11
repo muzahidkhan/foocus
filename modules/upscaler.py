@@ -10,10 +10,10 @@ opImageUpscaleWithModel = ImageUpscaleWithModel()
 model = None
 
 
-def perform_upscale(img):
+def perform_upscale(img, scale=2.0):
     global model
 
-    print(f'Upscaling image with shape {str(img.shape)} ...')
+    print(f'Upscaling image with shape {str(img.shape)} to {scale}x ...')
 
     if model is None:
         model_filename = downloading_upscale_model()
@@ -26,8 +26,11 @@ def perform_upscale(img):
         model.cpu()
         model.eval()
 
-    img = core.numpy_to_pytorch(img)
-    img = opImageUpscaleWithModel.upscale(model, img)[0]
-    img = core.pytorch_to_numpy(img)[0]
+    current_scale = 1.0
+    while current_scale < scale:
+        img = core.numpy_to_pytorch(img)
+        img = opImageUpscaleWithModel.upscale(model, img)[0]
+        img = core.pytorch_to_numpy(img)[0]
+        current_scale *= 2.0
 
     return img
