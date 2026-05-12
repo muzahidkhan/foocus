@@ -39,7 +39,9 @@
     "default_styles": [
         "Fooocus V2",
         "Fooocus Enhance",
-        "Fooocus Sharp"
+        "Fooocus Sharp",
+        "Muzahid Anatomy Accuracy",
+        "Muzahid Motion Accuracy"
     ],
     "default_aspect_ratio": "1152*896",
     "default_overwrite_step": -1,

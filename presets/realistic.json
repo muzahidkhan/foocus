@@ -39,7 +39,9 @@
     "default_styles": [
         "Fooocus V2",
         "Fooocus Photograph",
-        "Fooocus Negative"
+        "Fooocus Negative",
+        "Muzahid Anatomy Accuracy",
+        "Muzahid Motion Accuracy"
     ],
     "default_aspect_ratio": "896*1152",
     "default_overwrite_step": -1,

@@ -1,0 +1,12 @@
+[
+    {
+        "name": "Muzahid Anatomy Accuracy",
+        "prompt": "{prompt}, human anatomy reference, anatomically correct body structure, accurate skeletal landmarks, believable muscle groups, natural body proportions, correct joint articulation, balanced posture, realistic hand and foot structure, consistent limb length, coherent facial structure",
+        "negative_prompt": "bad anatomy, incorrect anatomy, deformed body, distorted torso, broken spine, dislocated joints, twisted limbs, extra limbs, missing limbs, extra fingers, missing fingers, fused fingers, malformed hands, malformed feet, elongated neck, uneven shoulders, impossible pose, unnatural proportions"
+    },
+    {
+        "name": "Muzahid Motion Accuracy",
+        "prompt": "{prompt}, motion reference, physically plausible action pose, clear line of action, accurate weight distribution, natural balance, believable body mechanics, correct gesture flow, realistic momentum, grounded foot placement, coherent direction of movement, dynamic but anatomically possible pose",
+        "negative_prompt": "impossible motion, frozen awkward pose, broken movement, floating body, unbalanced stance, incorrect weight distribution, twisted hips, twisted shoulders, disconnected gesture, stiff pose, motion blur hiding anatomy, inconsistent limb direction"
+    }
+]
