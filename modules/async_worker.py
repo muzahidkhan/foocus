@@ -689,6 +689,21 @@ def worker():
             negative_basic_workloads = []
 
             task_styles = async_task.style_selections.copy()
+            human_reference_styles = ['Muzahid Anatomy Accuracy', 'Muzahid Motion Accuracy']
+            human_reference_terms = [
+                'person', 'people', 'human', 'man', 'men', 'woman', 'women', 'male', 'female',
+                'boy', 'girl', 'adult', 'portrait', 'body', 'face', 'hand', 'hands', 'arm', 'arms',
+                'leg', 'legs', 'torso', 'muscle', 'muscular', 'athlete', 'character', 'model',
+                'dancer', 'runner', 'fighter', 'pose'
+            ]
+            task_prompt_lower = task_prompt.casefold()
+            import re
+            if any(re.search(rf'\b{re.escape(term)}\b', task_prompt_lower) for term in human_reference_terms):
+                for reference_style in human_reference_styles:
+                    if reference_style not in task_styles:
+                        task_styles.append(reference_style)
+                use_style = True
+
             if use_style:
                 placeholder_replaced = False
 
