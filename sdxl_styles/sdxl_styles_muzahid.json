@@ -1,7 +1,7 @@
 [
     {
         "name": "Muzahid Anatomy Accuracy",
-        "prompt": "{prompt}, human anatomy reference, anatomically correct body structure, accurate skeletal landmarks, believable muscle groups, natural body proportions, correct joint articulation, balanced posture, realistic hand and foot structure, consistent limb length, coherent facial structure, natural musculature for masculine or feminine body types, believable shoulder width, torso shape, pelvis alignment, chest structure, waist shape, hips, arms, legs, neck, and back anatomy",
+        "prompt": "{prompt}, clear primary human subject, one clearly visible person, human anatomy reference, anatomically correct body structure, accurate skeletal landmarks, believable muscle groups, natural body proportions, correct joint articulation, balanced posture, realistic hand and foot structure, consistent limb length, coherent facial structure, natural musculature for masculine or feminine body types, believable shoulder width, torso shape, pelvis alignment, chest structure, waist shape, hips, arms, legs, neck, and back anatomy",
         "negative_prompt": "bad anatomy, incorrect anatomy, deformed body, distorted torso, broken spine, dislocated joints, twisted limbs, extra limbs, missing limbs, extra fingers, missing fingers, fused fingers, malformed hands, malformed feet, elongated neck, uneven shoulders, impossible pose, unnatural proportions, incorrect musculature, mismatched muscle groups, overdeveloped anatomy, underdeveloped anatomy, distorted chest, distorted waist, distorted hips"
     },
     {

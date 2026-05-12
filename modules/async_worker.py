@@ -641,6 +641,36 @@ def worker():
 
     def process_prompt(async_task, prompt, negative_prompt, base_model_additional_loras, image_number, disable_seed_increment, use_expansion, use_style,
                        use_synthetic_refiner, current_progress, advance_progress=False):
+        def normalize_structured_prompt(positive, negative):
+            import re
+
+            negative_match = re.search(
+                r'(?is)\bnegative\s+prompt\s*:\s*(.*?)(?=\n\s*(?:generation\s+strategy|strategy|settings|parameters)\s*:|\Z)',
+                positive
+            )
+            if negative_match:
+                extracted_negative = negative_match.group(1).strip()
+                if extracted_negative:
+                    negative = f'{negative}\n{extracted_negative}'.strip() if negative.strip() else extracted_negative
+
+            positive = re.sub(
+                r'(?is)\n?\s*\bnegative\s+prompt\s*:\s*.*?(?=\n\s*(?:generation\s+strategy|strategy|settings|parameters)\s*:|\Z)',
+                '\n',
+                positive
+            )
+            positive = re.sub(
+                r'(?is)\n?\s*\b(?:generation\s+strategy|strategy|settings|parameters)\s*:.*\Z',
+                '\n',
+                positive
+            )
+            positive = re.sub(
+                r'(?im)^\s*(?:environment|lighting|hair|skin|camera|style|subject|posture|clothing|wardrobe)\s*:\s*$',
+                '',
+                positive
+            )
+            return positive.strip(), negative.strip()
+
+        prompt, negative_prompt = normalize_structured_prompt(prompt, negative_prompt)
         prompts = remove_empty_str([safe_str(p) for p in prompt.splitlines()], default='')
         negative_prompts = remove_empty_str([safe_str(p) for p in negative_prompt.splitlines()], default='')
         prompt = prompts[0]

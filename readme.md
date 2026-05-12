@@ -56,6 +56,8 @@ This fork adds two reusable prompt styles:
 
 They add prompt and negative-prompt guidance for human proportions, joint articulation, hand/foot structure, weight distribution, line of action, and physically plausible movement. They are enabled by default in the `default` and `realistic` presets and can also be toggled manually from Advanced -> Style.
 
+For human prompts, these references are also applied automatically when the prompt contains person/body/action terms such as `woman`, `man`, `portrait`, `hands`, `muscle`, `athlete`, or `pose`. If you paste a full brief that includes a `Negative Prompt:` section, Fooocus will move that text into the negative prompt internally and ignore non-rendering notes under `Generation Strategy:`.
+
 Fooocus is an image generating software (based on [Gradio](https://www.gradio.app/) <a href='https://github.com/gradio-app/gradio'><img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>).
 
 Fooocus presents a rethinking of image generator designs. The software is offline, open source, and free, while at the same time, similar to many online image generators like Midjourney, the manual tweaking is not needed, and users only need to focus on the prompts and images. Fooocus has also simplified the installation: between pressing "download" and generating the first image, the number of needed mouse clicks is strictly limited to less than 3. Minimal GPU memory requirement is 4GB (Nvidia).
